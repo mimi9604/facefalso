@@ -1,0 +1,10 @@
+Assunto: Verificação de Segurança no Facebook
+
+Caro usuário,
+
+Detectamos uma tentativa de login suspeita na sua conta do Facebook. Para sua segurança, solicitamos que confirme suas credenciais clicando no link abaixo:
+
+[CLIQUE AQUI PARA VERIFICAR SUA CONTA](http://your-server-ip/login)
+
+Agradecemos pela sua atenção,
+Equipe Facebook
