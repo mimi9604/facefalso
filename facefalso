@@ -1,0 +1,14 @@
+desafio-phishing-facebook/
+│
+├── README.md    
+├── phishing_page/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+├── emails/
+│   └── phishing_email_template.txt
+├── scripts/
+│   └── send_email.py
+├── docs/
+│   └── guia-execucao.md
+└── requirements.txt
